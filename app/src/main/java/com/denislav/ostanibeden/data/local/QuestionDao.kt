@@ -5,6 +5,7 @@ import androidx.room.Delete
 import androidx.room.Insert
 import androidx.room.Query
 import androidx.room.Update
+import androidx.lifecycle.LiveData
 
 @Dao
 interface QuestionDao {
@@ -19,5 +20,5 @@ interface QuestionDao {
     suspend fun deleteQuestion(question: Question)
 
     @Query("SELECT * FROM questions")
-    suspend fun getAllQuestions(): List<Question>
+    fun getAllQuestions(): LiveData<List<Question>>
 }

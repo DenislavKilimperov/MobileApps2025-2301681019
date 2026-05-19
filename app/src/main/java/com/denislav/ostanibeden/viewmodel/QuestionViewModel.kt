@@ -10,20 +10,12 @@ class QuestionViewModel(
     private val repository: QuestionRepository
 ) : ViewModel() {
 
+    val allQuestions = repository.getAllQuestions()
+
     fun insertQuestion(question: Question) {
 
         viewModelScope.launch {
             repository.insertQuestion(question)
-        }
-    }
-
-    fun getAllQuestions() {
-
-        viewModelScope.launch {
-
-            val questions = repository.getAllQuestions()
-
-            println(questions)
         }
     }
 }

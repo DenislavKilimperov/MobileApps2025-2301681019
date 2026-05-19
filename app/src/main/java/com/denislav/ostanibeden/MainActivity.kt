@@ -15,26 +15,7 @@ import com.denislav.ostanibeden.viewmodel.QuestionViewModel
 class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        val database = AppDatabase.getDatabase(this)
 
-        val repository = QuestionRepository(database.questionDao())
-
-        val viewModel = QuestionViewModel(repository)
-
-        val sampleQuestion = Question(
-            questionText = "Коя планета е известна като Червената планета?",
-            optionA = "Земя",
-            optionB = "Марс",
-            optionC = "Юпитер",
-            optionD = "Венера",
-            correctAnswer = "Марс",
-            category = "General",
-            difficulty = 1
-        )
-
-        viewModel.insertQuestion(sampleQuestion)
-
-        viewModel.getAllQuestions()
         enableEdgeToEdge()
         setContentView(R.layout.activity_main)
 

@@ -9,6 +9,9 @@ import com.denislav.ostanibeden.data.local.AppDatabase
 import com.denislav.ostanibeden.data.local.Question
 import com.denislav.ostanibeden.data.repository.QuestionRepository
 import com.denislav.ostanibeden.viewmodel.QuestionViewModel
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
+import com.denislav.ostanibeden.ui.adapter.QuestionAdapter
 
 class AdminActivity : AppCompatActivity() {
 
@@ -31,9 +34,18 @@ class AdminActivity : AppCompatActivity() {
         val etDifficulty = findViewById<EditText>(R.id.etDifficulty)
 
         val btnAddQuestion = findViewById<Button>(R.id.btnAddQuestion)
+        val recyclerQuestions = findViewById<RecyclerView>(R.id.recyclerQuestions)
 
+        val adapter = QuestionAdapter(emptyList())
+
+        recyclerQuestions.layoutManager = LinearLayoutManager(this)
+
+        recyclerQuestions.adapter = adapter
         btnAddQuestion.setOnClickListener {
+            viewModel.allQuestions.observe(this) { questions ->
 
+                adapter.updateData(questions)
+            }
             val question = Question(
                 questionText = etQuestion.text.toString(),
                 optionA = etOptionA.text.toString(),

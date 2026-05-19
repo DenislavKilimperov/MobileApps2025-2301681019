@@ -2,6 +2,7 @@ package com.denislav.ostanibeden.data.repository
 
 import com.denislav.ostanibeden.data.local.Question
 import com.denislav.ostanibeden.data.local.QuestionDao
+import androidx.lifecycle.LiveData
 
 class QuestionRepository(
     private val questionDao: QuestionDao
@@ -11,7 +12,7 @@ class QuestionRepository(
         questionDao.insertQuestion(question)
     }
 
-    suspend fun getAllQuestions(): List<Question> {
+    fun getAllQuestions(): LiveData<List<Question>> {
         return questionDao.getAllQuestions()
     }
 

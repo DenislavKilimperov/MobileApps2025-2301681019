@@ -55,4 +55,7 @@ dependencies {
     // VIEWMODEL
     implementation("androidx.lifecycle:lifecycle-viewmodel-ktx:2.10.0")
     implementation("androidx.lifecycle:lifecycle-runtime-ktx:2.10.0")
+
+    // RECYCLERVIEW
+    implementation("androidx.recyclerview:recyclerview:1.4.0")
 }
