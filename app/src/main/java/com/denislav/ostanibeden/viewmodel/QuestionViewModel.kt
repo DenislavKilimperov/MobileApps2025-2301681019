@@ -18,4 +18,20 @@ class QuestionViewModel(
             repository.insertQuestion(question)
         }
     }
+
+    fun deleteQuestion(question: Question) {
+
+        viewModelScope.launch {
+
+            repository.deleteQuestion(question)
+        }
+    }
+
+    fun updateQuestion(question: Question) {
+
+        viewModelScope.launch {
+
+            repository.updateQuestion(question)
+        }
+    }
 }

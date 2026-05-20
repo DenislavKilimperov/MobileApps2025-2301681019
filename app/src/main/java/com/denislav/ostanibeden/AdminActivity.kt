@@ -11,6 +11,7 @@ import com.denislav.ostanibeden.data.repository.QuestionRepository
 import com.denislav.ostanibeden.viewmodel.QuestionViewModel
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import android.content.Intent
 import com.denislav.ostanibeden.ui.adapter.QuestionAdapter
 
 class AdminActivity : AppCompatActivity() {
@@ -36,7 +37,38 @@ class AdminActivity : AppCompatActivity() {
         val btnAddQuestion = findViewById<Button>(R.id.btnAddQuestion)
         val recyclerQuestions = findViewById<RecyclerView>(R.id.recyclerQuestions)
 
-        val adapter = QuestionAdapter(emptyList())
+        val adapter = QuestionAdapter(
+
+            emptyList(),
+
+            onDeleteClick = { question ->
+
+                viewModel.deleteQuestion(question)
+
+                Toast.makeText(
+                    this,
+                    "Question Deleted",
+                    Toast.LENGTH_SHORT
+                ).show()
+            },
+
+            onEditClick = { question ->
+
+                val intent = Intent(this, EditQuestionActivity::class.java)
+
+                intent.putExtra("id", question.id)
+                intent.putExtra("questionText", question.questionText)
+                intent.putExtra("optionA", question.optionA)
+                intent.putExtra("optionB", question.optionB)
+                intent.putExtra("optionC", question.optionC)
+                intent.putExtra("optionD", question.optionD)
+                intent.putExtra("correctAnswer", question.correctAnswer)
+                intent.putExtra("category", question.category)
+                intent.putExtra("difficulty", question.difficulty)
+
+                startActivity(intent)
+            }
+        )
 
         recyclerQuestions.layoutManager = LinearLayoutManager(this)
 

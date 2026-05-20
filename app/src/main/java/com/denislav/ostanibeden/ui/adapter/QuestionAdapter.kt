@@ -10,7 +10,9 @@ import com.denislav.ostanibeden.R
 import com.denislav.ostanibeden.data.local.Question
 
 class QuestionAdapter(
-    private var questions: List<Question>
+    private var questions: List<Question>,
+    private val onDeleteClick: (Question) -> Unit,
+    private val onEditClick: (Question) -> Unit
 ) : RecyclerView.Adapter<QuestionAdapter.QuestionViewHolder>() {
 
     class QuestionViewHolder(view: View) : RecyclerView.ViewHolder(view) {
@@ -18,6 +20,7 @@ class QuestionAdapter(
         val tvQuestion: TextView = view.findViewById(R.id.tvQuestion)
         val tvCategory: TextView = view.findViewById(R.id.tvCategory)
         val btnDelete: Button = view.findViewById(R.id.btnDelete)
+        val btnEdit: Button = view.findViewById(R.id.btnEdit)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): QuestionViewHolder {
@@ -34,6 +37,14 @@ class QuestionAdapter(
 
         holder.tvQuestion.text = question.questionText
         holder.tvCategory.text = question.category
+        holder.btnDelete.setOnClickListener {
+
+            onDeleteClick(question)
+        }
+        holder.btnEdit.setOnClickListener {
+
+            onEditClick(question)
+        }
     }
 
     override fun getItemCount(): Int {
