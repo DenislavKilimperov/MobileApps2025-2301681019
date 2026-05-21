@@ -6,12 +6,13 @@ import androidx.room.Room
 import androidx.room.RoomDatabase
 
 @Database(
-    entities = [Question::class],
-    version = 1
+    entities = [Question::class, Player::class],
+    version = 2
 )
 abstract class AppDatabase : RoomDatabase() {
 
     abstract fun questionDao(): QuestionDao
+    abstract fun playerDao(): PlayerDao
 
     companion object {
 
@@ -26,7 +27,8 @@ abstract class AppDatabase : RoomDatabase() {
                     context.applicationContext,
                     AppDatabase::class.java,
                     "ostani_beden_database"
-                ).build()
+                ).fallbackToDestructiveMigration(true)
+                    .build()
 
                 INSTANCE = instance
 
