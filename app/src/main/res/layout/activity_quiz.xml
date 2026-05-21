@@ -23,6 +23,35 @@
         android:textSize="18sp"
         android:layout_marginTop="8dp"/>
 
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginTop="16dp">
+
+        <Button
+            android:id="@+id/btn5050"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="50/50"/>
+
+        <Button
+            android:id="@+id/btnAudience"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Audience"/>
+
+        <Button
+            android:id="@+id/btnFriend"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Friend"/>
+
+    </LinearLayout>
+
     <TextView
         android:id="@+id/tvQuestionText"
         android:layout_width="match_parent"
