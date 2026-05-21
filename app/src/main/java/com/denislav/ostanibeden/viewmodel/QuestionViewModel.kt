@@ -34,4 +34,8 @@ class QuestionViewModel(
             repository.updateQuestion(question)
         }
     }
+
+    suspend fun getRandomQuestions(): List<Question> {
+        return repository.getRandomQuestions()
+    }
 }

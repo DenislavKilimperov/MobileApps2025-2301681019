@@ -16,6 +16,10 @@ class QuestionRepository(
         return questionDao.getAllQuestions()
     }
 
+    suspend fun getRandomQuestions(): List<Question> {
+        return questionDao.getRandomQuestions()
+    }
+
     suspend fun updateQuestion(question: Question) {
         questionDao.updateQuestion(question)
     }

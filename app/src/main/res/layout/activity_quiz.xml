@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="16dp">
+
+    <TextView
+        android:id="@+id/tvQuestionCounter"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Question 1/15"
+        android:textSize="18sp"
+        android:layout_marginTop="25dp"/>
+
+    <TextView
+        android:id="@+id/tvCoins"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Coins: 0"
+        android:textSize="18sp"
+        android:layout_marginTop="8dp"/>
+
+    <TextView
+        android:id="@+id/tvQuestionText"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Question Text"
+        android:textSize="24sp"
+        android:layout_marginTop="24dp"/>
+
+    <Button
+        android:id="@+id/btnAnswerA"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Answer A"
+        android:layout_marginTop="24dp"/>
+
+    <Button
+        android:id="@+id/btnAnswerB"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Answer B"
+        android:layout_marginTop="12dp"/>
+
+    <Button
+        android:id="@+id/btnAnswerC"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Answer C"
+        android:layout_marginTop="12dp"/>
+
+    <Button
+        android:id="@+id/btnAnswerD"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Answer D"
+        android:layout_marginTop="12dp"/>
+
+</LinearLayout>

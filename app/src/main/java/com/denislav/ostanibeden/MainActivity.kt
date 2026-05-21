@@ -21,12 +21,22 @@ class MainActivity : AppCompatActivity() {
 
         val adminButton = findViewById<Button>(R.id.btnAdminPanel)
 
+        val startGameButton = findViewById<Button>(R.id.btnStartGame)
+
         adminButton.setOnClickListener {
 
             val intent = Intent(this, AdminActivity::class.java)
 
             startActivity(intent)
         }
+
+        startGameButton.setOnClickListener {
+
+            val intent = Intent(this, QuizActivity::class.java)
+
+            startActivity(intent)
+        }
+
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
             val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)

@@ -12,6 +12,15 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.OstaniBeden">
         <activity
+            android:name=".VictoryActivity"
+            android:exported="false" />
+        <activity
+            android:name=".GameOverActivity"
+            android:exported="false" />
+        <activity
+            android:name=".QuizActivity"
+            android:exported="false" />
+        <activity
             android:name=".EditQuestionActivity"
             android:exported="false" />
         <activity
