@@ -18,6 +18,28 @@
         app:layout_constraintEnd_toEndOf="parent"
         android:layout_marginTop="64dp"/>
 
+    <TextView
+        android:id="@+id/tvTotalPoints"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Points: 0"
+        android:textSize="20sp"
+        app:layout_constraintTop_toBottomOf="@id/tvTotalCoins"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginTop="8dp"/>
+
+    <TextView
+        android:id="@+id/tvInventory"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Inventory"
+        android:textSize="18sp"
+        app:layout_constraintTop_toBottomOf="@id/tvTotalPoints"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginTop="8dp"/>
+
     <Button
         android:id="@+id/btnAdminPanel"
         android:layout_width="wrap_content"
@@ -34,6 +56,16 @@
         android:layout_height="wrap_content"
         android:text="START GAME"
         app:layout_constraintTop_toBottomOf="@id/btnAdminPanel"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginTop="16dp"/>
+
+    <Button
+        android:id="@+id/btnSlotMachine"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="SLOT MACHINE"
+        app:layout_constraintTop_toBottomOf="@id/btnStartGame"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         android:layout_marginTop="16dp"/>

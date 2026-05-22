@@ -12,6 +12,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.OstaniBeden">
         <activity
+            android:name=".SlotMachineActivity"
+            android:exported="false" />
+        <activity
             android:name=".VictoryActivity"
             android:exported="false" />
         <activity

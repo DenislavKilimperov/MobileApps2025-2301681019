@@ -35,31 +35,51 @@ class MainActivity : AppCompatActivity() {
         val tvTotalCoins =
             findViewById<TextView>(R.id.tvTotalCoins)
 
+        val tvTotalPoints =
+            findViewById<TextView>(R.id.tvTotalPoints)
+
+        val tvInventory =
+            findViewById<TextView>(R.id.tvInventory)
+
         val adminButton =
             findViewById<Button>(R.id.btnAdminPanel)
 
         val startGameButton =
             findViewById<Button>(R.id.btnStartGame)
 
+        val btnSlotMachine =
+            findViewById<Button>(R.id.btnSlotMachine)
+
         lifecycleScope.launch {
 
-            var player =
+            var currentPlayer =
                 playerViewModel.getPlayer()
 
-            if (player == null) {
+            if (currentPlayer == null) {
 
                 val newPlayer = Player(
                     totalCoins = 0,
-                    totalPoints = 0
+                    totalPoints = 0,
+                    extra5050 = 0,
+                    extraAudience = 0,
+                    extraFriend = 0
                 )
 
                 playerViewModel.insertPlayer(newPlayer)
 
-                player = newPlayer
+                currentPlayer = newPlayer
             }
 
             tvTotalCoins.text =
-                "Total Coins: ${player.totalCoins}"
+                "Total Coins: ${currentPlayer.totalCoins}"
+
+            tvTotalPoints.text =
+                "Points: ${currentPlayer.totalPoints}"
+
+            tvInventory.text =
+                "🎭 ${currentPlayer.extra5050} | " +
+                        "📉 ${currentPlayer.extraAudience} | " +
+                        "☎️ ${currentPlayer.extraFriend}"
         }
 
         adminButton.setOnClickListener {
@@ -74,6 +94,14 @@ class MainActivity : AppCompatActivity() {
 
             val intent =
                 Intent(this, QuizActivity::class.java)
+
+            startActivity(intent)
+        }
+
+        btnSlotMachine.setOnClickListener {
+
+            val intent =
+                Intent(this, SlotMachineActivity::class.java)
 
             startActivity(intent)
         }

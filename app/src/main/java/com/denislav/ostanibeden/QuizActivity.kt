@@ -218,18 +218,51 @@ class QuizActivity : AppCompatActivity() {
 
         if (used5050) {
 
-            Toast.makeText(
-                this,
-                "50/50 already used",
-                Toast.LENGTH_SHORT
-            ).show()
+            lifecycleScope.launch {
 
-            return
+                val player = playerViewModel.getPlayer()
+
+                if (player != null &&
+                    player.extra5050 > 0) {
+
+                    val updatedPlayer = player.copy(
+                        extra5050 =
+                            player.extra5050 - 1
+                    )
+
+                    playerViewModel.updatePlayer(updatedPlayer)
+
+                    runOnUiThread {
+
+                        Toast.makeText(
+                            this@QuizActivity,
+                            "Extra 50/50 Used!",
+                            Toast.LENGTH_SHORT
+                        ).show()
+                    }
+
+                } else {
+
+                    runOnUiThread {
+
+                        Toast.makeText(
+                            this@QuizActivity,
+                            "50/50 already used",
+                            Toast.LENGTH_SHORT
+                        ).show()
+                    }
+
+                    return@launch
+                }
+            }
         }
 
-        used5050 = true
+        if (!used5050) {
 
-        btn5050.isEnabled = false
+            used5050 = true
+
+            btn5050.isEnabled = false
+        }
 
         val currentQuestion =
             questionList[currentQuestionIndex]
@@ -260,18 +293,51 @@ class QuizActivity : AppCompatActivity() {
 
         if (usedAudience) {
 
-            Toast.makeText(
-                this,
-                "Audience already used",
-                Toast.LENGTH_SHORT
-            ).show()
+            lifecycleScope.launch {
 
-            return
+                val player = playerViewModel.getPlayer()
+
+                if (player != null &&
+                    player.extraAudience > 0) {
+
+                    val updatedPlayer = player.copy(
+                        extraAudience =
+                            player.extraAudience - 1
+                    )
+
+                    playerViewModel.updatePlayer(updatedPlayer)
+
+                    runOnUiThread {
+
+                        Toast.makeText(
+                            this@QuizActivity,
+                            "Extra Audience Joker Used!",
+                            Toast.LENGTH_SHORT
+                        ).show()
+                    }
+
+                } else {
+
+                    runOnUiThread {
+
+                        Toast.makeText(
+                            this@QuizActivity,
+                            "Audience joker already used",
+                            Toast.LENGTH_SHORT
+                        ).show()
+                    }
+
+                    return@launch
+                }
+            }
         }
 
-        usedAudience = true
+        if (!usedAudience) {
 
-        btnAudience.isEnabled = false
+            usedAudience = true
+
+            btnAudience.isEnabled = false
+        }
 
         val currentQuestion =
             questionList[currentQuestionIndex]
@@ -307,18 +373,51 @@ class QuizActivity : AppCompatActivity() {
 
         if (usedFriend) {
 
-            Toast.makeText(
-                this,
-                "Friend already used",
-                Toast.LENGTH_SHORT
-            ).show()
+            lifecycleScope.launch {
 
-            return
+                val player = playerViewModel.getPlayer()
+
+                if (player != null &&
+                    player.extraFriend > 0) {
+
+                    val updatedPlayer = player.copy(
+                        extraFriend =
+                            player.extraFriend - 1
+                    )
+
+                    playerViewModel.updatePlayer(updatedPlayer)
+
+                    runOnUiThread {
+
+                        Toast.makeText(
+                            this@QuizActivity,
+                            "Extra Friend Joker Used!",
+                            Toast.LENGTH_SHORT
+                        ).show()
+                    }
+
+                } else {
+
+                    runOnUiThread {
+
+                        Toast.makeText(
+                            this@QuizActivity,
+                            "Friend joker already used",
+                            Toast.LENGTH_SHORT
+                        ).show()
+                    }
+
+                    return@launch
+                }
+            }
         }
 
-        usedFriend = true
+        if (!usedFriend) {
 
-        btnFriend.isEnabled = false
+            usedFriend = true
+
+            btnFriend.isEnabled = false
+        }
 
         val currentQuestion =
             questionList[currentQuestionIndex]
