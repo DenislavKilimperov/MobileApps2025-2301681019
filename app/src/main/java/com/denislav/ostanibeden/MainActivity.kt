@@ -62,7 +62,10 @@ class MainActivity : AppCompatActivity() {
                     totalPoints = 0,
                     extra5050 = 0,
                     extraAudience = 0,
-                    extraFriend = 0
+                    extraFriend = 0,
+                    disable5050 = false,
+                    fakeAudience = false,
+                    halfCoins = false
                 )
 
                 playerViewModel.insertPlayer(newPlayer)

@@ -18,5 +18,11 @@ data class Player(
 
     val extraAudience: Int,
 
-    val extraFriend: Int
+    val extraFriend: Int,
+
+    val disable5050: Boolean,
+
+    val fakeAudience: Boolean,
+
+    val halfCoins: Boolean
 )

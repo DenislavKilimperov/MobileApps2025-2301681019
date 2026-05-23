@@ -43,6 +43,10 @@ class QuizActivity : AppCompatActivity() {
     private var usedAudience = false
     private var usedFriend = false
 
+    private var disable5050Curse = false
+    private var fakeAudienceCurse = false
+    private var halfCoinsCurse = false
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
@@ -53,6 +57,8 @@ class QuizActivity : AppCompatActivity() {
         initializeViews()
 
         loadQuestions()
+
+        loadCurseEffects()
 
         btn5050 = findViewById(R.id.btn5050)
         btnAudience = findViewById(R.id.btnAudience)
@@ -122,6 +128,27 @@ class QuizActivity : AppCompatActivity() {
             } else {
 
                 showQuestion()
+            }
+        }
+    }
+
+    private fun loadCurseEffects() {
+
+        lifecycleScope.launch {
+
+            val player =
+                playerViewModel.getPlayer()
+
+            if (player != null) {
+
+                disable5050Curse =
+                    player.disable5050
+
+                fakeAudienceCurse =
+                    player.fakeAudience
+
+                halfCoinsCurse =
+                    player.halfCoins
             }
         }
     }
@@ -215,6 +242,17 @@ class QuizActivity : AppCompatActivity() {
     }
 
     private fun use5050Joker() {
+
+        if (disable5050Curse) {
+
+            Toast.makeText(
+                this,
+                "💀 50/50 CURSED",
+                Toast.LENGTH_SHORT
+            ).show()
+
+            return
+        }
 
         if (used5050) {
 
@@ -344,11 +382,7 @@ class QuizActivity : AppCompatActivity() {
 
         val randomChance = (1..100).random()
 
-        val suggestedAnswer = if (randomChance <= 85) {
-
-            currentQuestion.correctAnswer
-
-        } else {
+        val suggestedAnswer = if (fakeAudienceCurse) {
 
             listOf(
                 currentQuestion.optionA,
@@ -360,6 +394,26 @@ class QuizActivity : AppCompatActivity() {
                 it != currentQuestion.correctAnswer
 
             }.random()
+
+        } else {
+
+            if (randomChance <= 65) {
+
+                currentQuestion.correctAnswer
+
+            } else {
+
+                listOf(
+                    currentQuestion.optionA,
+                    currentQuestion.optionB,
+                    currentQuestion.optionC,
+                    currentQuestion.optionD
+                ).filter {
+
+                    it != currentQuestion.correctAnswer
+
+                }.random()
+            }
         }
 
         Toast.makeText(
@@ -451,11 +505,24 @@ class QuizActivity : AppCompatActivity() {
 
     private fun handleCorrectAnswer() {
 
-        coins += 10
+        if (halfCoinsCurse) {
+
+            coins += 5
+
+        } else {
+
+            coins += 10
+        }
+
+        val earnedCoins = if (halfCoinsCurse) {
+            5
+        } else {
+            10
+        }
 
         Toast.makeText(
             this,
-            "Correct! +10 Coins",
+            "Correct! +$earnedCoins Coins",
             Toast.LENGTH_SHORT
         ).show()
 
@@ -472,7 +539,7 @@ class QuizActivity : AppCompatActivity() {
             Toast.LENGTH_LONG
         ).show()
 
-        saveCoins()
+        saveGameResults()
 
         val intent =
             Intent(this, GameOverActivity::class.java)
@@ -486,7 +553,7 @@ class QuizActivity : AppCompatActivity() {
 
     private fun openVictoryScreen() {
 
-        saveCoins()
+        saveGameResults()
 
         val intent =
             Intent(this, VictoryActivity::class.java)
@@ -498,7 +565,7 @@ class QuizActivity : AppCompatActivity() {
         finish()
     }
 
-    private fun saveCoins() {
+    private fun saveGameResults() {
 
         lifecycleScope.launch {
 
@@ -507,13 +574,21 @@ class QuizActivity : AppCompatActivity() {
 
             if (player != null) {
 
-                val updatedPlayer =
-                    player.copy(
-                        totalCoins =
-                            player.totalCoins + coins
-                    )
+                val updatedPlayer = player.copy(
 
-                playerViewModel.updatePlayer(updatedPlayer)
+                    totalCoins =
+                        player.totalCoins + coins,
+
+                    disable5050 = false,
+
+                    fakeAudience = false,
+
+                    halfCoins = false
+                )
+
+                playerViewModel.updatePlayer(
+                    updatedPlayer
+                )
             }
         }
     }

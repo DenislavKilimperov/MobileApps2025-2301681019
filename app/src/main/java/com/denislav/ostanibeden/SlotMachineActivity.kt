@@ -1,6 +1,8 @@
 package com.denislav.ostanibeden
 
 import android.os.Bundle
+import android.os.Handler
+import android.os.Looper
 import android.widget.Button
 import android.widget.TextView
 import android.widget.Toast
@@ -26,13 +28,14 @@ class SlotMachineActivity : AppCompatActivity() {
 
     private var currentPlayer: Player? = null
 
+    private var isSpinning = false
+
     private val symbols = listOf(
         "⭐",
         "🎭",
         "📉",
         "☎️",
         "💀",
-        "💰",
         "❌"
     )
 
@@ -84,6 +87,12 @@ class SlotMachineActivity : AppCompatActivity() {
 
     private fun spinMachine() {
 
+        if (isSpinning) return
+
+        isSpinning = true
+
+        btnSpin.isEnabled = false
+
         val player = currentPlayer ?: return
 
         if (player.totalCoins < 10) {
@@ -111,15 +120,52 @@ class SlotMachineActivity : AppCompatActivity() {
         tvSlotCoins.text =
             "Coins: ${updatedPlayer.totalCoins}"
 
-        val reel1 = symbols.random()
-        val reel2 = symbols.random()
-        val reel3 = symbols.random()
+        val handler = Handler(Looper.getMainLooper())
 
-        tvReel1.text = reel1
-        tvReel2.text = reel2
-        tvReel3.text = reel3
+        var spinCount = 0
 
-        calculateReward(reel1, reel2, reel3)
+        val spinRunnable = object : Runnable {
+
+            override fun run() {
+
+                val random1 = symbols.random()
+                val random2 = symbols.random()
+                val random3 = symbols.random()
+
+                tvReel1.text = random1
+                tvReel2.text = random2
+                tvReel3.text = random3
+
+                spinCount++
+
+                if (spinCount < 30) {
+
+                    handler.postDelayed(this, 50)
+
+                } else {
+
+                    val final1 = symbols.random()
+                    val final2 = symbols.random()
+                    val final3 = symbols.random()
+
+                    tvReel1.text = final1
+                    tvReel2.text = final2
+                    tvReel3.text = final3
+
+                    calculateReward(
+                        final1,
+                        final2,
+                        final3
+                    )
+
+                    isSpinning = false
+
+                    btnSpin.isEnabled = true
+                }
+            }
+        }
+
+        handler.post(spinRunnable)
     }
 
     private fun calculateReward(
@@ -139,8 +185,6 @@ class SlotMachineActivity : AppCompatActivity() {
                 "📉" -> rewardAudience()
 
                 "☎️" -> rewardFriend()
-
-                "💰" -> rewardCoins(50)
 
                 "💀" -> badLuck()
 
@@ -230,13 +274,44 @@ class SlotMachineActivity : AppCompatActivity() {
             "EXTRA FRIEND JOKER WON ☎️"
     }
 
-    private fun rewardCoins(coins: Int) {
+    private fun badLuck() {
 
         val player = currentPlayer ?: return
 
-        val updatedPlayer = player.copy(
-            totalCoins = player.totalCoins + coins
-        )
+        val curseType = (1..3).random()
+
+        val updatedPlayer = when (curseType) {
+
+            1 -> {
+
+                tvReward.text =
+                    "💀 CURSE: NO 50/50"
+
+                player.copy(
+                    disable5050 = true
+                )
+            }
+
+            2 -> {
+
+                tvReward.text =
+                    "💀 CURSE: FAKE AUDIENCE"
+
+                player.copy(
+                    fakeAudience = true
+                )
+            }
+
+            else -> {
+
+                tvReward.text =
+                    "💀 CURSE: HALF COINS"
+
+                player.copy(
+                    halfCoins = true
+                )
+            }
+        }
 
         currentPlayer = updatedPlayer
 
@@ -244,23 +319,11 @@ class SlotMachineActivity : AppCompatActivity() {
 
             playerViewModel.updatePlayer(updatedPlayer)
         }
-
-        tvSlotCoins.text =
-            "Coins: ${updatedPlayer.totalCoins}"
-
-        tvReward.text =
-            "JACKPOT! +$coins COINS 💰"
-    }
-
-    private fun badLuck() {
-
-        tvReward.text =
-            "💀 CURSED SPIN 💀"
     }
 
     private fun noReward() {
 
         tvReward.text =
-            "No reward..."
+            "💸 Better luck next time..."
     }
 }
