@@ -224,6 +224,8 @@ class QuizActivity : AppCompatActivity() {
         btnB.isEnabled = true
         btnC.isEnabled = true
         btnD.isEnabled = true
+
+        updateJokerButtons()
     }
 
     private fun checkAnswer(selectedAnswer: String) {
@@ -238,6 +240,30 @@ class QuizActivity : AppCompatActivity() {
         } else {
 
             handleWrongAnswer()
+        }
+    }
+
+    private fun updateJokerButtons() {
+
+        lifecycleScope.launch {
+
+            val player =
+                playerViewModel.getPlayer()
+
+            if (player != null) {
+
+                btn5050.isEnabled =
+                    !used5050 ||
+                            player.extra5050 > 0
+
+                btnAudience.isEnabled =
+                    !usedAudience ||
+                            player.extraAudience > 0
+
+                btnFriend.isEnabled =
+                    !usedFriend ||
+                            player.extraFriend > 0
+            }
         }
     }
 
@@ -298,8 +324,6 @@ class QuizActivity : AppCompatActivity() {
         if (!used5050) {
 
             used5050 = true
-
-            btn5050.isEnabled = false
         }
 
         val currentQuestion =
@@ -325,6 +349,8 @@ class QuizActivity : AppCompatActivity() {
             "50/50 Used",
             Toast.LENGTH_SHORT
         ).show()
+
+        updateJokerButtons()
     }
 
     private fun useAudienceJoker() {
@@ -373,8 +399,6 @@ class QuizActivity : AppCompatActivity() {
         if (!usedAudience) {
 
             usedAudience = true
-
-            btnAudience.isEnabled = false
         }
 
         val currentQuestion =
@@ -421,6 +445,8 @@ class QuizActivity : AppCompatActivity() {
             "Audience suggests: $suggestedAnswer",
             Toast.LENGTH_LONG
         ).show()
+
+        updateJokerButtons()
     }
 
     private fun useFriendJoker() {
@@ -469,8 +495,6 @@ class QuizActivity : AppCompatActivity() {
         if (!usedFriend) {
 
             usedFriend = true
-
-            btnFriend.isEnabled = false
         }
 
         val currentQuestion =
@@ -501,6 +525,8 @@ class QuizActivity : AppCompatActivity() {
             "Friend says: Bro I think it's $friendAnswer",
             Toast.LENGTH_LONG
         ).show()
+
+        updateJokerButtons()
     }
 
     private fun handleCorrectAnswer() {

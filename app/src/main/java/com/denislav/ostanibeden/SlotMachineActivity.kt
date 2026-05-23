@@ -81,6 +81,9 @@ class SlotMachineActivity : AppCompatActivity() {
 
                 tvSlotCoins.text =
                     "Coins: ${currentPlayer!!.totalCoins}"
+
+                tvReward.text =
+                    "Pity: ${currentPlayer!!.slotPityCounter}/5"
             }
         }
     }
@@ -88,10 +91,6 @@ class SlotMachineActivity : AppCompatActivity() {
     private fun spinMachine() {
 
         if (isSpinning) return
-
-        isSpinning = true
-
-        btnSpin.isEnabled = false
 
         val player = currentPlayer ?: return
 
@@ -105,6 +104,13 @@ class SlotMachineActivity : AppCompatActivity() {
 
             return
         }
+
+        isSpinning = true
+
+        btnSpin.isEnabled = false
+
+        val guaranteedSpin =
+            player.slotPityCounter >= 5
 
         val updatedPlayer = player.copy(
             totalCoins = player.totalCoins - 10
@@ -144,9 +150,30 @@ class SlotMachineActivity : AppCompatActivity() {
 
                 } else {
 
-                    val final1 = symbols.random()
-                    val final2 = symbols.random()
-                    val final3 = symbols.random()
+                    val final1: String
+                    val final2: String
+                    val final3: String
+
+                    if (guaranteedSpin) {
+
+                        val guaranteedSymbol = listOf(
+                            "⭐",
+                            "🎭",
+                            "📉",
+                            "☎️",
+                            "💀"
+                        ).random()
+
+                        final1 = guaranteedSymbol
+                        final2 = guaranteedSymbol
+                        final3 = guaranteedSymbol
+
+                    } else {
+
+                        final1 = symbols.random()
+                        final2 = symbols.random()
+                        final3 = symbols.random()
+                    }
 
                     tvReel1.text = final1
                     tvReel2.text = final2
@@ -176,24 +203,46 @@ class SlotMachineActivity : AppCompatActivity() {
 
         if (reel1 == reel2 && reel2 == reel3) {
 
+            resetPity()
+
             when (reel1) {
 
-                "⭐" -> rewardPoints(20)
+                "⭐" -> {
 
-                "🎭" -> reward5050()
+                    rewardPoints(20)
+                }
 
-                "📉" -> rewardAudience()
+                "🎭" -> {
 
-                "☎️" -> rewardFriend()
+                    reward5050()
+                }
 
-                "💀" -> badLuck()
+                "📉" -> {
 
-                else -> noReward()
+                    rewardAudience()
+                }
+
+                "☎️" -> {
+
+                    rewardFriend()
+                }
+
+                "💀" -> {
+
+                    badLuck()
+                }
+
+                else -> {
+
+                    noReward()
+                }
             }
 
         } else {
 
             noReward()
+
+            increasePity()
         }
     }
 
@@ -325,5 +374,41 @@ class SlotMachineActivity : AppCompatActivity() {
 
         tvReward.text =
             "💸 Better luck next time..."
+    }
+
+    private fun increasePity() {
+
+        val player = currentPlayer ?: return
+
+        val updatedPlayer = player.copy(
+            slotPityCounter =
+                player.slotPityCounter + 1
+        )
+
+        currentPlayer = updatedPlayer
+
+        lifecycleScope.launch {
+
+            playerViewModel.updatePlayer(updatedPlayer)
+        }
+
+        tvReward.text =
+            "Pity: ${updatedPlayer.slotPityCounter}/5"
+    }
+
+    private fun resetPity() {
+
+        val player = currentPlayer ?: return
+
+        val updatedPlayer = player.copy(
+            slotPityCounter = 0
+        )
+
+        currentPlayer = updatedPlayer
+
+        lifecycleScope.launch {
+
+            playerViewModel.updatePlayer(updatedPlayer)
+        }
     }
 }

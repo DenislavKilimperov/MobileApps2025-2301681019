@@ -24,5 +24,7 @@ data class Player(
 
     val fakeAudience: Boolean,
 
-    val halfCoins: Boolean
+    val halfCoins: Boolean,
+
+    val slotPityCounter: Int
 )
