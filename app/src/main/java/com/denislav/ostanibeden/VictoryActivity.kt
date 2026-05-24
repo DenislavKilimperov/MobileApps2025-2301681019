@@ -18,10 +18,42 @@ class VictoryActivity : AppCompatActivity() {
         val tvVictoryCoins =
             findViewById<TextView>(R.id.tvVictoryCoins)
 
+        val btnShare =
+            findViewById<Button>(R.id.btnShare)
+
         val btnVictoryMenu =
             findViewById<Button>(R.id.btnVictoryMenu)
 
         tvVictoryCoins.text = "Final Coins: $coins"
+
+        btnShare.setOnClickListener {
+
+            val shareText =
+
+                "🏆 I won $coins coins in " +
+                        "Ostani Beden!\n" +
+                        "Can you beat me? 😈"
+
+            val shareIntent = Intent(
+
+                Intent.ACTION_SEND
+            )
+
+            shareIntent.type = "text/plain"
+
+            shareIntent.putExtra(
+                Intent.EXTRA_TEXT,
+                shareText
+            )
+
+            startActivity(
+
+                Intent.createChooser(
+                    shareIntent,
+                    "Share your result"
+                )
+            )
+        }
 
         btnVictoryMenu.setOnClickListener {
 
