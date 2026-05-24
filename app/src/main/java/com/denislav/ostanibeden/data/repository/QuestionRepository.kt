@@ -16,9 +16,8 @@ class QuestionRepository(
         return questionDao.getAllQuestions()
     }
 
-    suspend fun getRandomQuestions(): List<Question> {
-        return questionDao.getRandomQuestions()
-    }
+    suspend fun getQuestionsByCategory(category: String) =
+        questionDao.getQuestionsByCategory(category)
 
     suspend fun updateQuestion(question: Question) {
         questionDao.updateQuestion(question)

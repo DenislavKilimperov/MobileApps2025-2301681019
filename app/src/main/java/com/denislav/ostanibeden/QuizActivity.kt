@@ -47,10 +47,14 @@ class QuizActivity : AppCompatActivity() {
     private var fakeAudienceCurse = false
     private var halfCoinsCurse = false
 
+    private var selectedCategory = "General"
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
         setContentView(R.layout.activity_quiz)
+
+        selectedCategory = intent.getStringExtra("category") ?: "General"
 
         initializeDatabase()
 
@@ -113,7 +117,7 @@ class QuizActivity : AppCompatActivity() {
         lifecycleScope.launch {
 
             questionList =
-                questionViewModel.getRandomQuestions()
+                questionViewModel.getQuestionsByCategory(selectedCategory)
 
             if (questionList.isEmpty()) {
 

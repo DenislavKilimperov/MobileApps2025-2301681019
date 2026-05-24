@@ -35,7 +35,6 @@ class QuestionViewModel(
         }
     }
 
-    suspend fun getRandomQuestions(): List<Question> {
-        return repository.getRandomQuestions()
-    }
+    suspend fun getQuestionsByCategory(category: String) =
+        repository.getQuestionsByCategory(category)
 }

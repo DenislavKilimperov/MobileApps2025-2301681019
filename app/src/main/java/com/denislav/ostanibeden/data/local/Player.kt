@@ -26,5 +26,11 @@ data class Player(
 
     val halfCoins: Boolean,
 
-    val slotPityCounter: Int
+    val slotPityCounter: Int,
+
+    val unlockedGaming: Boolean,
+
+    val unlockedMovies: Boolean,
+
+    val unlockedHistory: Boolean
 )
