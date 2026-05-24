@@ -131,18 +131,29 @@ class MainActivity : AppCompatActivity() {
                 "Points: " +
                         currentPlayer.totalPoints
 
-            val curseCount =
-                listOf(
-                    currentPlayer.disable5050,
-                    currentPlayer.fakeAudience,
-                    currentPlayer.halfCoins
-                ).count { it }
+            val curses = mutableListOf<String>()
+
+            if (currentPlayer.disable5050) {
+                curses.add("❌ 50/50 blocked")
+            }
+
+            if (currentPlayer.fakeAudience) {
+                curses.add("👁️ Fake audience")
+            }
+
+            if (currentPlayer.halfCoins) {
+                curses.add("💸 Half coins")
+            }
 
             tvInventory.text =
                 "🎭 ${currentPlayer.extra5050} | " +
                         "📉 ${currentPlayer.extraAudience} | " +
                         "☎️ ${currentPlayer.extraFriend}\n" +
-                        "💀 Curses: $curseCount/3"
+                        if (curses.isEmpty()) {
+                            "💀 Curses: None"
+                        } else {
+                            "💀 Curses:\n" + curses.joinToString("\n")
+                        }
 
             if (currentPlayer.unlockedGaming) {
 
