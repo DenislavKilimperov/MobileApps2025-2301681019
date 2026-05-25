@@ -73,11 +73,14 @@ class AdminActivity : AppCompatActivity() {
         recyclerQuestions.layoutManager = LinearLayoutManager(this)
 
         recyclerQuestions.adapter = adapter
-        btnAddQuestion.setOnClickListener {
-            viewModel.allQuestions.observe(this) { questions ->
 
-                adapter.updateData(questions)
-            }
+        viewModel.allQuestions.observe(this) { questions ->
+
+            adapter.updateData(questions)
+        }
+
+        btnAddQuestion.setOnClickListener {
+
             val question = Question(
                 questionText = etQuestion.text.toString(),
                 optionA = etOptionA.text.toString(),

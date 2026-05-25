@@ -6,34 +6,47 @@
     android:layout_height="match_parent"
     android:gravity="center"
     android:orientation="vertical"
-    android:padding="24dp">
+    android:padding="32dp">
 
     <TextView
+        android:id="@+id/tvVictoryTitle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="YOU WON!"
-        android:textSize="36sp"/>
+        android:text="🏆 YOU WON!"
+        android:textSize="40sp"
+        android:textStyle="bold"/>
+
+    <TextView
+        android:id="@+id/tvVictorySubtitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="You survived capitalism"
+        android:textSize="18sp"
+        android:layout_marginTop="12dp"/>
 
     <TextView
         android:id="@+id/tvVictoryCoins"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Final Coins: 0"
-        android:textSize="24sp"
-        android:layout_marginTop="24dp"/>
+        android:textSize="28sp"
+        android:textStyle="bold"
+        android:layout_marginTop="40dp"/>
 
     <Button
         android:id="@+id/btnVictoryMenu"
-        android:layout_width="wrap_content"
+        android:layout_width="260dp"
         android:layout_height="wrap_content"
-        android:text="BACK TO MENU"
-        android:layout_marginTop="24dp"/>
+        android:text="🏠 BACK TO MENU"
+        android:textSize="18sp"
+        android:layout_marginTop="40dp"/>
 
     <Button
         android:id="@+id/btnShare"
-        android:layout_width="wrap_content"
+        android:layout_width="260dp"
         android:layout_height="wrap_content"
-        android:text="📤 Share Results"
+        android:text="📤 SHARE RESULTS"
+        android:textSize="18sp"
         android:layout_marginTop="16dp"/>
 
 </LinearLayout>

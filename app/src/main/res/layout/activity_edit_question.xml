@@ -1,68 +1,130 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:fillViewport="true">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:padding="16dp">
+        android:padding="20dp">
 
-        <EditText
-            android:id="@+id/etEditQuestion"
-            android:layout_width="match_parent"
-            android:layout_height="50dp"
-            android:hint="Question" />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="✏️ Edit Question"
+            android:textSize="28sp"
+            android:textStyle="bold"
+            android:layout_gravity="center"
+            android:layout_marginBottom="24dp"/>
 
-        <EditText
-            android:id="@+id/etEditOptionA"
+        <com.google.android.material.card.MaterialCardView
             android:layout_width="match_parent"
-            android:layout_height="50dp"
-            android:hint="Option A" />
+            android:layout_height="wrap_content"
+            app:cardCornerRadius="20dp"
+            app:cardElevation="6dp">
 
-        <EditText
-            android:id="@+id/etEditOptionB"
-            android:layout_width="match_parent"
-            android:layout_height="50dp"
-            android:hint="Option B" />
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:padding="20dp">
 
-        <EditText
-            android:id="@+id/etEditOptionC"
-            android:layout_width="match_parent"
-            android:layout_height="50dp"
-            android:hint="Option C" />
+                <EditText
+                    android:id="@+id/etEditQuestion"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="Question"
+                    android:minHeight="56dp"
+                    android:padding="14dp"
+                    android:textSize="16sp"
+                    android:layout_marginBottom="14dp"/>
 
-        <EditText
-            android:id="@+id/etEditOptionD"
-            android:layout_width="match_parent"
-            android:layout_height="50dp"
-            android:hint="Option D" />
+                <EditText
+                    android:id="@+id/etEditOptionA"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="Option A"
+                    android:minHeight="56dp"
+                    android:padding="14dp"
+                    android:textSize="16sp"
+                    android:layout_marginBottom="12dp"/>
 
-        <EditText
-            android:id="@+id/etEditCorrectAnswer"
-            android:layout_width="match_parent"
-            android:layout_height="50dp"
-            android:hint="Correct Answer" />
+                <EditText
+                    android:id="@+id/etEditOptionB"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="Option B"
+                    android:minHeight="56dp"
+                    android:padding="14dp"
+                    android:textSize="16sp"
+                    android:layout_marginBottom="12dp"/>
 
-        <EditText
-            android:id="@+id/etEditCategory"
-            android:layout_width="match_parent"
-            android:layout_height="50dp"
-            android:hint="Category" />
+                <EditText
+                    android:id="@+id/etEditOptionC"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="Option C"
+                    android:minHeight="56dp"
+                    android:padding="14dp"
+                    android:textSize="16sp"
+                    android:layout_marginBottom="12dp"/>
 
-        <EditText
-            android:id="@+id/etEditDifficulty"
-            android:layout_width="match_parent"
-            android:layout_height="50dp"
-            android:hint="Difficulty" />
+                <EditText
+                    android:id="@+id/etEditOptionD"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="Option D"
+                    android:minHeight="56dp"
+                    android:padding="14dp"
+                    android:textSize="16sp"
+                    android:layout_marginBottom="12dp"/>
 
-        <Button
-            android:id="@+id/btnSaveChanges"
-            android:layout_width="match_parent"
-            android:layout_height="50dp"
-            android:text="SAVE CHANGES" />
+                <EditText
+                    android:id="@+id/etEditCorrectAnswer"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="Correct Answer"
+                    android:minHeight="56dp"
+                    android:padding="14dp"
+                    android:textSize="16sp"
+                    android:layout_marginBottom="12dp"/>
+
+                <EditText
+                    android:id="@+id/etEditCategory"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="Category"
+                    android:minHeight="56dp"
+                    android:padding="14dp"
+                    android:textSize="16sp"
+                    android:layout_marginBottom="12dp"/>
+
+                <EditText
+                    android:id="@+id/etEditDifficulty"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="Difficulty"
+                    android:minHeight="56dp"
+                    android:padding="14dp"
+                    android:textSize="16sp"
+                    android:layout_marginBottom="20dp"/>
+
+                <Button
+                    android:id="@+id/btnSaveChanges"
+                    android:layout_width="match_parent"
+                    android:layout_height="56dp"
+                    android:text="💾 SAVE CHANGES"
+                    android:textSize="16sp"
+                    android:textStyle="bold"/>
+
+            </LinearLayout>
+
+        </com.google.android.material.card.MaterialCardView>
 
     </LinearLayout>
 
