@@ -31,6 +31,7 @@ class SlotMachineActivity : AppCompatActivity() {
     private var isSpinning = false
 
     private val symbols = listOf(
+        "7️⃣",
         "⭐",
         "🎭",
         "📉",
@@ -157,6 +158,7 @@ class SlotMachineActivity : AppCompatActivity() {
                     if (guaranteedSpin) {
 
                         val guaranteedSymbol = listOf(
+                            "7️⃣",
                             "⭐",
                             "🎭",
                             "📉",
@@ -206,6 +208,11 @@ class SlotMachineActivity : AppCompatActivity() {
             resetPity()
 
             when (reel1) {
+
+                "7️⃣" -> {
+
+                    jackpotReward()
+                }
 
                 "⭐" -> {
 
@@ -265,6 +272,25 @@ class SlotMachineActivity : AppCompatActivity() {
             "YOU WON $points POINTS ⭐"
     }
 
+    private fun jackpotReward() {
+
+        val player = currentPlayer ?: return
+
+        val updatedPlayer = player.copy(
+            totalPoints = player.totalPoints + 100
+        )
+
+        currentPlayer = updatedPlayer
+
+        lifecycleScope.launch {
+
+            playerViewModel.updatePlayer(updatedPlayer)
+        }
+
+        tvReward.text =
+            "🎰 JACKPOT MYSTERY BONUS 🎰 +100 POINTS"
+    }
+    
     private fun reward5050() {
 
         val player = currentPlayer ?: return
